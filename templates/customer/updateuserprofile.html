@@ -1,0 +1,25 @@
+{% extends "customer/custbase.html" %}
+{% load static %}
+{% block content %}
+
+<div class=" px-5">
+    <div class="px-5 py-2">
+
+         <form action="" method="post">
+            {% csrf_token %}
+                <label for=""  class="fw-bold">Enter Fullname:</label>
+                {{custdata.Customer_Fullname}}
+                <label for=""  class="fw-bold">Enter Email:</label>
+                {{custdata.Customer_Email}}
+                <label for=""  class="fw-bold">Enter Phone Number:</label>
+                {{custdata.Customer_Phoneno}}
+                <label for=""  class="fw-bold">Enter Address:</label>
+                {{custdata.Customer_Address}}
+                <br>
+                <input type="submit" value="Update" name="submit" class="btn btn-outline-warning   class="fw-bold"">
+            </form>
+            <br>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "restaurant/restsidebar.html" %} {% load static %} {% block content %}
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" class="border-0 bg-light">
+          <div class="p-2 px-3 text-uppercase">Product</div>
+        </th>
+        <th scope="col" class="border-0 bg-light">
+          <div class="py-2 text-uppercase">Price</div>
+        </th>
+        <th scope="col" class="border-0 bg-light">
+          <div class="py-2 text-uppercase">Edit Item</div>
+        </th>
+        <th scope="col" class="border-0 bg-light">
+          <div class="py-2 text-uppercase">Remove Item</div>
+        </th>
+        <th scope="col" class="border-0 bg-light">
+          <div class="py-2 text-uppercase">Avaiblality</div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {% for i in fooddata %}
+        <th scope="row" class="border-0">
+          <div class="p-2">
+            <img
+              src="{{i.food_photo.url}}"
+              alt=""
+              width="100"
+              class="img-fluid rounded shadow-sm"
+            />
+            <div class="ml-3 d-inline-block align-middle">
+              <h5 class="mb-0">
+                <p href="#" class="text-dark d-inline-block align-middle"
+                  >{{i.food_name}}</p>
+              </h5>
+
+              <span class="text-muted font-weight-normal font-italic d-block"
+                >Category:{{i.category_name}}</span
+              >
+            </div>
+          </div>
+        </th>
+        <td class="border-0 align-middle"><strong>&#8377;{{i.food_price}}</strong></td>
+        
+        <td class="border-0 align-middle fs-5 ">
+          <a href="{% url 'updatefooditem' i.id %}" class=" text-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+
+        </td>
+        <td class="border-0 align-middle fs-5">
+          <a href="{% url 'deletfooditem' i.id %}" class="text-danger"><i class="fa fa-trash"></i></a>
+        </td>
+
+        {% if i.availability %}
+        <td class="border-0 align-middle fs-5">
+          <span class="badge bg-success">Available</span>
+        </td>
+        {%else%}
+        <td class="border-0 align-middle fs-5">
+          <span class="badge bg-warning">Not Available</span>
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "restaurant/restsidebar.html" %}
+ {% load static %} 
+ {% block content %}
+
+ <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Orders Received</h6>
+                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{orders|length}}</span></h2>
+                    <p class="m-b-0">Completed Orders<span class="f-right">{{orders|length}}</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Food Items</h6>
+                    <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>{{fooddata|length}}</span></h2>
+                    <p class="m-b-0">Total Food Items<span class="f-right">{{fooddata|length}}</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-e-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Pending Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>{{pending_orders|length}}</span></h2>
+                    <p class="m-b-0">Total Pending Orders<span class="f-right">{{pending_orders|length}}</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-f-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Accepted Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>{{accepted_orders|length}}</span></h2>
+                    <p class="m-b-0">Total Accepted Orders<span class="f-right">{{accepted_orders|length}}</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Preparing Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span>{{preparing_orders|length}}</span></h2>
+                    <p class="m-b-0">Preparing Orders<span class="f-right">{{preparing_orders|length}}</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Ready Received</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>{{ready_orders|length}}</span></h2>
+                    <p class="m-b-0">Ready Orders<span class="f-right">{{ready_orders|length}}</span></p>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+
+ {% endblock %}

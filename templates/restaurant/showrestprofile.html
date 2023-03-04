@@ -1,0 +1,52 @@
+{% extends "restaurant/restsidebar.html" %}
+ {% load static %} 
+ {% block content %}
+
+
+{% for i in restdata1 %}
+
+{% if request.user.is_authenticated %}
+{% comment %} {% if request.user.id.Profile %} {% endcomment %}
+
+<div class="container p-5">
+  <table class="table table-striped">
+    <thead>
+              <tr>
+                  <th scope="col" class="fw-normal">Restaurant Name : </th>
+                  <th scope="col">{{i.Restaurant_Name}}</th>
+                </tr>
+                  
+                  
+                  <tr>
+                      <th scope="col" class="fw-normal">Restaurant Email :</th>
+                      <th scope="col">{{i.Restaurant_Email}}</th>
+                    </tr>
+                  <tr>
+                    <th scope="col" class="fw-normal">Restaurant Phone Number :</th>
+                    <th scope="col">{{i.Restaurant_Phoneno}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="col" class="fw-normal">Restaurant Type :</th>
+                        <th scope="col">{{i.Restaurant_Type}}</th>
+                    </tr>
+                        <tr>
+                <th scope="col" class="fw-normal">Restaurant Address :</th>
+                <th scope="col">{{i.Restaurant_Address}}</th>
+              </tr>
+              <tr>
+                <th scope="col" class="fw-normal">Restaurant GST No :</th>
+                <th scope="col">{{i.Restaurant_GSTno}}</th>
+              </tr>
+            </thead>
+          </table>
+          
+          
+          <a href="{% url 'updaterestprofile' i.id %}" class="btn btn-warning fw-bold">Update</a>
+          
+        </div>
+          {% endif %}
+        
+      
+        {% endfor %}
+
+{% endblock %}

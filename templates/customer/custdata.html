@@ -1,0 +1,31 @@
+{% extends "customer/custbase.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="container p-5">
+         <form action="" method="post">
+            {% csrf_token %}
+            
+                <label for="">Enter Fullname:</label>
+                {{custdata.Customer_Fullname}}
+                {{custdata.Customer_Fullname.errors}}
+
+                <label for="">Enter Email:</label>
+                {{custdata.Customer_Email}}
+                {{custdata.Customer_Email.errors}}
+
+                <label for="">Enter Phone Number:</label>
+                {{custdata.Customer_Phoneno}}
+                {{custdata.Customer_Phoneno.errors}}
+                
+                <label for="">Enter Address:</label>
+                {{custdata.Customer_Address}}
+                {{custdata.Customer_Address.errors}}
+                <br>
+                <input type="submit" value="Save Your Data" name="submit" class="btn btn-warning">
+
+            </form>
+  
+        </div>
+{% endblock %}

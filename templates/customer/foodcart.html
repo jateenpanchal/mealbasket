@@ -1,0 +1,94 @@
+{% extends "customer/custbase.html" %}
+{% load cart_tag %}
+{% load static %}
+{% block content %}
+
+
+<section class="h-100" style="background-color: #eee;">
+    <div class="container h-100 py-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-10">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
+                    <div class="clearcartbtn">
+                        <a href="{% url 'cart_clear' %}"> <button class="btn btn-warning">Clear Cart</button></a>
+                    </div>
+                </div>
+                <hr>
+
+
+                <!------------------------ cart cardsssss------------------------------------ -->
+                {% for key,value in request.session.cart.items %}
+                <div class="card rounded-3 mb-4">
+                    <div class="card-body p-3">
+                        <div class="row d-flex justify-content-between align-items-center">
+                            <div class="col-md-2 col-lg-2 col-xl-2">
+                                <img src="{{value.image}}" class="img-fluid rounded-3" alt="">
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                <p class="lead fw-normal mb-2">{{value.name}}</p>
+                                {% comment %} <p class="lead fw-normal mb-2">{{value.restaurant}}</p> {% endcomment %}
+
+                            </div>
+                            <div class="col-md-2 col-lg-2 col-xl-2 d-flex">
+                                <div class="input-group quantity mx-auto" style="width: 100px;">
+                                    <div class="input-group-btn">
+                                       
+                                        <a  href="{% url 'item_decrement' value.fooditemdata_id %}" class="btn btn-sm btn-warning btn-minus" >
+                                        <i class="fa fa-minus"></i>
+                                       
+                                    </a>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm border-0 text-center" value="{{value.quantity}}">
+                                    <div class="input-group-btn">
+                                        <a href="{% url 'item_increment' value.fooditemdata_id %}" class="btn btn-sm btn-warning btn-plus">
+                                            <i class="fa fa-plus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-3 text-center">
+                                <h6 class="mb-0 text-dark fw-bold ">Total {{ value.price|multiply:value.quantity }} &#8377;</h6>
+                            </div>
+                            <div class="col-md-2 col-lg-2 col-xl-2 text-end">
+                                <a href="{% url 'item_clear' value.fooditemdata_id %}" class=" btn btn-danger btn-sm">Delet Item</a>
+                                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+                <!--------------- cart end------------ -->
+                <hr>
+                {% comment %} <div class="card mb-4">
+                    <div class="card-body p-4 d-flex flex-row">
+                        <div class="form-outline flex-fill">
+                            <input type="text" id="form1" class="form-control form-control-lg" />
+                            <label class="form-label" for="form1">Discound code</label>
+                        </div>
+                        <button type="button" class="btn btn-outline-warning btn ms-3">Apply</button>
+                    </div>
+                </div> {% endcomment %}
+
+                <div class="card">
+                    <div class="card-body position-relative">
+                        
+                        <span class="fs-6 fw-bold text-dark float-end">&#8377; {{cart_total_amount}}</span>
+                        <span class="fs-6 fw-bold text-dark float-end" >Sub Total: </span> 
+                        <a href="{% url 'CheckOut' %}"  class="btn btn-warning">Proced To Pay</a>
+                        <p></p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- </div>
+</div> -->
+{% endblock %}

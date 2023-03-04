@@ -1,0 +1,92 @@
+{% extends "customer/custbase.html" %}
+{% load static %}
+{% load cart_tag %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row g-0">
+        <div class="col-md-8">
+            <div class="container">
+                <div class="d-flex   justify-content-between align-items-center mb-4">
+                    <h3 class="fw-normal mb-0 text-black fw-bold">Shopping Cart</h3>
+                </div>
+                <hr>
+
+                <form action="" method="post">
+                    {% csrf_token %}
+
+                   
+
+                    <label class="fw-bold fs-6 text-dark" for="">First Name:</label>
+                    {{orderdata.first_name}}
+
+                    <label class="fw-bold fs-6 text-dark" for="">Last Name:</label>
+                    {{orderdata.last_name}}
+
+                    <label class="fw-bold fs-6 text-dark" for="">Address:</label>
+                    {{orderdata.address}}
+
+                    <label class="fw-bold fs-6 text-dark" for="">State:</label>
+                    {{orderdata.state}}
+
+                    <label class="fw-bold fs-6 text-dark" for="">City:</label>
+                    {{orderdata.city}}
+
+                    <label class="fw-bold fs-6 text-dark" for="">Area:</label>
+                    {{orderdata.area}}
+
+                    <label class="fw-bold fs-6 text-dark" for="">Contact Number:</label>
+                    {{orderdata.phone_number}}
+
+                    <label class="fw-bold fs-6 text-dark" for="">Pin-Code:</label>
+                    {{orderdata.pin_code}}
+
+                    {% comment %} <label class="fw-bold fs-6 text-dark" for="">Order-Total Amount:</label>
+                    {{orderdata.order_total}} {% endcomment %}
+
+                    <input type="hidden" value="{{cart_total_amount}}" name="order_total">
+                    
+                    <br>
+                    <input type="submit" value="CheckOut" name="submit" class="btn btn-warning fw-bold">
+                    <hr>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class=" mb-4">
+                <div class="card-body  d-flex flex-row">
+                    <div class="container-fluid row g-0">
+                        <div class="row g-0 p-3" style="background-color: #1b1a45;">
+
+                            <div class="card rounded-3 mb-4">
+                                <h3><span class="style-change p-5">Items Overview</span></h3>
+                                <hr>
+                                <div class="card-body p-3 ">
+                                    <div class="row d-flex justify-content-between align-items-center">
+                                        {% for key,value in request.session.cart.items %}
+                                        
+                            <div class="col">
+                                <p class="lead fw-normal mb-1">{{value.name}}</p>
+
+                            </div>
+                            
+                            <div class="col text-center">
+                                <h6 class="mb-0 text-dark fw-bold ">Price {{ value.price| multiply:value.quantity }} &#8377;</h6>
+                            </div>
+                            <hr>
+                            {% endfor %}
+                            <h5><span class=" py-5 text-black">Total Price  </span><span class="float-end text-black px-5">{{cart_total_amount}} &#8377;</span></h5>
+                        </div>
+                    </div>
+                </div>
+                
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

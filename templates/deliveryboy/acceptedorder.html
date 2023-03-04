@@ -1,0 +1,95 @@
+{% extends "deliveryboy/delsidebar.html" %}
+ {% load static %} 
+ {% block content %}
+
+ 
+
+ <table class="table table table-striped table-hover  align-middle mb-0 bg-white">
+    <thead class="bg-light" >
+      <tr>
+        <th class="table-primary"> <label class="fs-6" for="">ORDER</label> </th>
+        <th class="table-primary"> <label class="fs-6" for="">NAME</label> </th>
+        <th class="table-primary"> <label class="fs-6" for="">PRICE</label> </th>
+        <th class="table-primary"> <label class="fs-6" for="">TOTAL BILL</label> </th>
+        <th class="table-primary"> <label class="fs-6" for="">DATE & TIME</label> </th>
+        <th class="table-primary"> <label class="fs-6" for="">Order Status</label> </th>
+        <th class="table-primary"> <label class="fs-6" for="">Delivery Status</label> </th>
+        <th class="table-primary"> <label class="fs-6" for="">Details</label> </th>
+        
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in ordersdata  %}
+      <tr>
+        <td>
+          <div class="d-flex align-items-center">
+            <img
+                src="{{i.image}}"
+                alt=""
+                style="width: 100px; height: 80px; border-radius:5px"
+                />
+            <div class="ms-3">
+              <p class="fw-bold mb-1">{{i.f_name|upper}}</p>
+              
+              {% comment %} <p class="text-muted mb-0">Phone Number:{{i.phone_number}}</p> {% endcomment %}
+            </div>
+          </div>
+        </td>
+        <td>
+          {% comment %} <p class="fw-bold mb-1">{{i.f_name|upper}}</p> {% endcomment %}
+          <label class="fw-bold mt-4">{{ i.first_name|upper }}</label>
+                <label for="" class="fw-bold mt-4">{{ i.last_name|upper }}</label>
+          <p class="text-muted mb-0">{{i.category_name}}</p>
+        </td>
+        <td>
+          <p class="mt-4">{{i.price}}</p>
+        </td>
+        <td>
+          <p class="mt-4">
+
+            {{i.total}}
+          </p>
+        </td>
+        <td>
+          <p class="mt-4">
+
+            {{i.time}}
+          </p>
+          
+        </td>
+        
+        <td>
+            {% comment %} {{i.order_status}} {% endcomment %}
+            {% if i.order_status == 'pending' %}
+            <p class="text-warning mt-4 ">{{ i.order_status|upper }} <i class="fa-solid fa-hourglass-end"></i> </p>
+        {% elif i.order_status == 'accepted' %}
+            <p class=" text-success  mt-4">{{ i.order_status|upper }}  <i class="fa-solid fa-circle-check"></i></p>
+        {% elif i.order_status == 'ready' %}
+            <p class="text-primary  mt-4">{{ i.order_status|upper }} <i class="fa-duotone fa-moped"></i></p>
+        {% elif i.order_status == 'preparing' %}
+            <p class="text-primary  mt-4">{{ i.order_status|upper }}</p>
+        {% else %}
+            <p class=" mt-4">{{ i.order_status }}</p>
+        {% endif %}
+        
+      </td>
+      <td>
+        <p class="mt-4" >{{i.delivery_status}}</p>
+      </td>
+
+          
+
+        <td>
+          <a class="btn btn-primary btn-sm" href="{% url 'moreorderdetail' i.id %}" class=" text-dark">More Details</a>
+          <br>
+          <a style="width:97px; margin-top:5px;" class="btn btn-warning btn-sm" href="{% url 'updatedelstatus' i.id %}" class=" text-dark"><i class="fa-solid fa-pen-to-square"></i></a>
+
+          </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+
+ {% endblock %}

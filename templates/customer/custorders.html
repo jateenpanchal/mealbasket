@@ -1,0 +1,184 @@
+{% extends "customer/profilebase.html" %}
+
+{% load static %}
+{% block profilecontent %}
+
+<style>
+  .track-line {
+    height: 2px !important;
+    background-color: #488978;
+    opacity: 1;
+    }
+    
+    .dot {
+    height: 10px;
+    width: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 0px;
+    background-color: #488978;
+    border-radius: 50%;
+    display: inline-block
+    }
+    
+    .big-dot {
+    height: 25px;
+    width: 25px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    background-color: #488978;
+    border-radius: 50%;
+    display: inline-block;
+    }
+    
+    .big-dot i {
+    font-size: 12px;
+    }
+    
+    .card-stepper {
+    z-index: 0
+    }
+</style>
+
+
+<table class="table  table-hover  align-middle mb-0 bg-white">
+    <thead class="bg-light">
+      <tr>
+          <th class=""> <label class="fs-6" for="">ORDER</label> </th>
+          {% comment %} <th class=""> <label class="fs-6" for="">NAME</label> </th> {% endcomment %}
+          <th class=""> <label class="fs-6" for="">QUANTITY</label> </th>
+          <th class=""> <label class="fs-6" for="">PRICE</label> </th>
+          <th class=""> <label class="fs-6" for="">TOTAL BILL</label> </th>
+          <th class=""> <label class="fs-6" for="">DATE & TIME</label> </th>
+          <th class=""> <label class="fs-6" for="">Restaurant Order Status</label> </th>
+          <th class=""> <label class="fs-6" for="">Delivery Order Status</label> </th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <h5 class="text-dark">Total Orders : {{custorders|length}}</h5>
+
+        {% for i in custorders  %}
+      <tr>
+        <td>
+          <div class="d-flex align-items-center">
+            <img
+                src="{{i.image}}"
+                alt=""
+                style="width: 100px; height: 80px; border-radius:5px"/>
+            <div class="ms-3">
+              <p class="fw-bold mb-1">{{i.f_name|upper}}</p>
+              
+              {% comment %} <p class="text-muted mb-0">Phone Number:{{i.phone_number}}</p> {% endcomment %}
+            </div>
+          </div>
+        </td>
+        {% comment %} <td>
+          <p class="fw-bold mb-1">{{i.f_name|upper}}</p>
+          <label class="fw-bold  mb-1">{{ i.first_name|upper }}</label>
+                <label for="" class="fw-bold mb-1">{{ i.last_name|upper }}</label>
+          <p class="text-muted mb-0">{{i.category_name}}</p>
+        </td> {% endcomment %}
+        <td>
+          <p>{{i.quantity}}</p>
+        </td>
+        <td>
+          <p>{{i.price}}</p>
+        </td>
+        <td>{{i.total}}</td>
+        <td>
+            {{i.time}}
+          
+        </td>
+        <td>
+          {% comment %} {{i.order_status}} {% endcomment %}
+          {% if i.order_status == 'pending' %}
+          <span style="pointer-events: none;" class="text-dark btn btn-outline-warning btn-sm ">{{ i.order_status|upper }} </span>
+      {% elif i.order_status == 'accepted' %}
+          <span style="pointer-events: none;" class=" text-dark btn btn-outline-success btn-sm">{{ i.order_status|upper }}  <i class="fa-solid fa-circle-check"></i></span>
+      {% elif i.order_status == 'ready' %}
+          <span style="pointer-events: none;" class="text-dark btn btn-outline-primary btn-sm">{{ i.order_status|upper }} <i class="fa-duotone fa-moped"></i></span>
+      {% elif i.order_status == 'preparing' %}
+          <span style="pointer-events: none;" class="text-dark btn btn-outline-danger btn-sm">{{ i.order_status|upper }}</span>
+      {% else %}
+          <span  style="pointer-events: none;">{{ i.order_status }}</span>
+      {% endif %}
+      
+
+        
+      </td>
+        <td>
+          {% comment %} {{i.order_status}} {% endcomment %}
+          {% if i.delivery_status == 'Going To Restaurant' %}
+          <span style="pointer-events: none;" class="text-dark btn btn-warning btn-sm ">{{ i.delivery_status|upper }} </span>
+      {% elif i.delivery_status == 'Picked Up' %}
+          <span style="pointer-events: none;" class=" text-light btn btn-danger btn-sm">{{ i.delivery_status|upper }}  <i class="fa-solid fa-circle-check"></i></span>
+          {% else %}
+          <span style="pointer-events: none;" class=" text-light btn btn-success btn-sm">{{ i.delivery_status|upper }}  <i class="fa-solid fa-circle-check"></i></span>
+          {% comment %} <span  style="pointer-events: none;">{{ i.delivery_status }}</span> {% endcomment %}
+      {% endif %}
+      
+
+        
+      </td>
+      </tr>
+
+
+
+
+{% comment %} 
+      
+      <section class="" style="background-color: #eee;">
+        <div class="container py-5>
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+              <div class="card card-stepper" style="border-radius: 10px;">
+                <div class="card-body p-4">
+      
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex flex-column">
+                      <span class="lead fw-normal">Your order has been delivered</span>
+                      <span class="text-muted small">Ordered on {{i.date}}</span>
+                    </div>
+                     <div>
+                      <button class="btn btn-outline-primary" type="button">Track order details</button>
+                    </div> 
+                  </div>
+                  <hr class="my-4">
+      
+                  <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
+                    <span class="dot"></span>
+                    <hr class="flex-fill track-line"><span class="dot"></span>
+                    <hr class="flex-fill track-line"><span class="dot"></span>
+                    <hr class="flex-fill track-line"><span class="dot"></span>
+                    <hr class="flex-fill track-line"><span
+                      class="d-flex justify-content-center align-items-center big-dot dot">
+                      <i class="fa fa-check text-white"></i></span>
+                  </div>
+      
+                  <div class="d-flex flex-row justify-content-between align-items-center">
+                    <div class="d-flex flex-column align-items-start"><span>15 Mar</span><span>Order placed</span>
+                    </div>
+                    <div class="d-flex flex-column justify-content-center"><span>15 Mar</span><span>Order
+                        placed</span></div>
+                    <div class="d-flex flex-column justify-content-center align-items-center"><span>15
+                        Mar</span><span>Order Dispatched</span></div>
+                    <div class="d-flex flex-column align-items-center"><span>15 Mar</span><span>Out for
+                        delivery</span></div>
+                    <div class="d-flex flex-column align-items-end"><span>15 Mar</span><span>Delivered</span></div>
+                  </div>
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section> {% endcomment %}
+
+
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

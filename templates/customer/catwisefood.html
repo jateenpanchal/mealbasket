@@ -1,0 +1,158 @@
+{% extends "customer/custbase.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<!-- category area start -->
+<div class="card mb-4">
+    <div class="card-body p-4 d-flex flex-row">
+        <div class="container-fluid row g-0">
+            <div class="row g-0 p-3" style="background-color: #1b1a45;">
+
+                <h3><span class="style-change text-light">Category</span></h3>
+                {% for i in catdata %}
+                <div class="card mb-3 col-lg-2 col-md-3  col-sm-4 m-1" style="max-width: 200px;">
+                    <div class="row g-0">
+                        <a href="{% url 'catwisefood' i.id %}" class="text-decoration-none">
+                            <div class="col ">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-dark fw-bold">{{i.category_name}}</h5>
+                                </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    
+</div>
+<!-- category area end -->
+
+<!-- Shop Start -->
+<div class="container-fluid g-0">
+    <div class="row px-xl-5 g-0">
+        <!-- Shop Sidebar Start -->
+
+        <!-- Shop Sidebar End -->
+
+
+        <!-- Shop Product Start -->
+        <div class="col">
+            <div class="row g-0 pb-3">
+                <div class="col-12 pb-1">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div>
+                            <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
+                            <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
+                        </div>
+                        <div class="ml-2">
+                            <div class="btn-group">
+                                <div class="btn-group">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Small button
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Latest</a></li>
+                                        <li><a class="dropdown-item" href="#">Popularity</a></li>
+                                        <li><a class="dropdown-item" href="#">Best Rating</a></li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="btn-group">
+                                    <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Price 
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="#">10</a>
+                                        <a class="dropdown-item" href="#">20</a>
+                                        <a class="dropdown-item" href="#">30</a>
+                                    </div>
+                                </div>
+                               
+                                <div class="dropdown-menu dropdown-menu-right">
+
+
+
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="row g-0">
+
+                    <section style="background-color: #eee;">
+                        <div class="container py-5">
+                          <div class="row mb-3">
+                            {% for i in fooddata %}
+                            <div class="col-md-6 mb-4">
+            
+                              <div class="card shadow-0 border rounded-3">
+                                <div class="card-body">
+                                  <div class="row">
+                                    <div class=" col mb-4 mb-lg-0">
+                                        
+                                      <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                        <img height="200px" src="{{i.food_photo.url}}"
+                                          class="w-100" />
+                                        <a href="#!">
+                                          <div class="hover-overlay">
+                                            <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                          </div>
+                                        </a>
+                                      </div>
+                                    </div>
+                                    <div class="col">
+                                      <h5>{{i.food_name}}</h5>
+                                      <div class="d-flex flex-row">
+                                        <div class="text-danger mb-1 me-2">
+                                          <i class="fa fa-star"></i>
+                                          <i class="fa fa-star"></i>
+                                          <i class="fa fa-star"></i>
+                                          <i class="fa fa-star"></i>
+                                        </div>
+                                        <span></span>
+                                        <br>
+                                    </div>
+                                    <p class="mb-1 fs-5 text-dark me-1">{{i.food_price}} &#8377;</p>
+                                    <h6 class="text-success">Free shipping</h6>
+                                    <button style="width:150px;" class="btn btn-warning btn-sm mt-2" type="button">
+                                        <a class="text-decoration-none text-dark " href="{% url 'cart_add'  i.id  %}">Add to cart</a>
+                                        
+                                      </button>
+            
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                    {% endfor %}
+            
+                            </div>
+                          </div>
+                         
+                          
+                        </section>
+                      </div>
+
+
+
+
+            <!-- Shop Product End -->
+            </div>
+        </div>
+    </div>
+</div>
+    
+    <!-- Shop End -->
+
+
+
+    {% endblock %}

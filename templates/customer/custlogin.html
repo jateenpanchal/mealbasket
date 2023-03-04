@@ -1,0 +1,34 @@
+{% extends "customer/custbase.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        <br>
+
+        <div class="alert alert-alert alert-dismissible fade show text-alert" role="alert">
+            <strong class="fs-5 ">{{error}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+               <br>
+
+        <label for="">
+            <p class="fs-6 fw-bold"> Email:</p>
+        </label>
+        <input type="email" name="email" id="email" class="form-control">
+        <br>
+
+        <label for="">
+            <p class="fs-6 fw-bold">Password:</p>
+        </label>
+        <input type="password" name='password' id="password" class="form-control">
+        <br>
+        <input type="submit" name='submit' id="submit" class="btn btn-warning fw-bold" value="Login">
+        <a href="{% url 'password_reset' %}" class=" m-3 text-decoration-none fs-6 fw-bolder text-warning">forget password?</a>
+        <!-- {{error}} -->
+        <hr>
+
+    </form>
+</div>
+{% endblock %}

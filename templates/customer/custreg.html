@@ -1,0 +1,43 @@
+{% extends "customer/custbase.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+
+<form action="" method="post">
+    {% csrf_token %}
+  
+    <hr>
+    <br>
+
+<label for=""><p class="fs-6 fw-bold"> Email:</p></label>
+{{form.email}}
+{{form.email.errors}}
+<br>
+
+<label for=""><p class="fs-6 fw-bold"> Password:</p></label>
+{{form.password1}}
+{{form.password1.errors}}
+<br>
+
+<label for=""><p class="fs-6 fw-bold"> Confirm Password:</p></label>
+{{form.password2}}
+{{form.password2.errors}}
+<br> 
+{{form.is_customer}}
+{{form.is_customer.errors}}
+<label class="form-check-label" for="form2Example3">
+    I agree all statements in <a href="#!">Terms of service</a>
+  </label>
+<br> 
+{% comment %} 
+{{form.email}}
+{{form.password1}}
+{{form.password2}} {% endcomment %}
+
+<input type="submit" value="Register" name="submit" class="btn btn-warning fw-bold">
+<br>
+<hr>
+</form>
+</div>
+    {% endblock %}

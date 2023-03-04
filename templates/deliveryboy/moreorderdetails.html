@@ -1,0 +1,46 @@
+{% extends "deliveryboy/delsidebar.html" %}
+ {% load static %} 
+ {% block content %}
+
+<div class="row g-0 bg-light m-2 p-2">
+<div class="col">
+    <h3>
+        Customer Details
+    </h3>
+    <hr>
+    {% for i in ordersdata %}
+    <p>Customer First Name:{{i.first_name}}</p> 
+    <p>Customer Last Name:{{i.last_name}}</p> 
+    <p>Customer's Address':{{i.address}}</p> 
+    <p>State:{{i.state}}</p> 
+    <p>City:{{i.city}}</p> 
+    <p>Area:{{i.area}}</p> 
+    <p>Customer Phone Number:{{i.phone_number}}</p> 
+    {% endfor %}
+</div>
+<div class="col">
+    <h3>Order Details</h3>
+    <hr>
+    {% for i in ordersdata %}
+    <p>Ordered Food Name: {{i.f_name}}</p> 
+    <p>Ordered Food Quantity: {{i.quantity}}</p> 
+    <p>Ordered Food Price: {{i.price}}</p>
+    <p>Date & Time: {{i.time}}</p> 
+    {% endfor %}
+</div>
+<div class="col">
+    <h3>Restaurant Details</h3>
+    <hr>
+    {% for i in restaurant %}
+    <p>Restaurant id: {{i.id}}</p>
+    <p>Restaurant Name: {{i.Restaurant_Name}}</p> 
+    <p>Restaurant Email: {{i.Restaurant_Email}}</p> 
+    <p>Restaurant Address: {{i.Restaurant_Address}}</p>
+    {% endfor %}
+</div>
+
+</div>
+
+
+
+ {% endblock %}

@@ -1,0 +1,81 @@
+<!-- Navbar -->
+{% extends "deliveryboy/delbase.html" %} {% load static %} {% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Container wrapper -->
+  <div class="container">
+    <!-- Navbar brand -->
+    <a class="navbar-brand me-2" href="https://mdbgo.com/"> MealBasket </a>
+
+    <!-- Toggle button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarButtonsExample"
+      aria-controls="navbarButtonsExample"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarButtonsExample">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#"></a>
+        </li>
+      </ul>
+      <!-- Left links -->
+
+      <div class="d-flex align-items-center">
+        <button type="button" class="btn btn-link px-3 me-2">
+          <a class="text-primary text-decoration-none" href="{% url 'dellogin' %}">Login</a> </button>
+        <button type="button" class="btn btn-primary me-3">
+        <a class="text-light text-decoration-none" href="{% url 'delreg' %}"> Sign up for free</a>
+        </button>
+      </div>
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+
+<style>
+  .delbg{
+    height:569px;
+     width:1366px;
+     position: relative;
+  }
+
+  .overlay{
+    height:569px;
+     width:1366px;
+     color:white;
+     display:flex;
+     position: absolute;
+     top:0%;
+     justify-content:center:
+  margin: 0 0;
+    flex-direction: column;
+     align-items:center;
+     background-color:rgba(0,0,0,0.5)
+  }
+</style>
+
+<div class="delbg">
+  <img
+    src="{% static 'images/123.jpg' %}"
+    height="569px"
+    width="1366px"
+    alt=""
+  />
+  <div class="overlay">
+    <h1 class="">Welcome To MealBasket</h1>
+    <h2 class="">Delivery Partners</h2>
+  </div>
+</div>
+<!-- Navbar -->
+{% endblock %}
