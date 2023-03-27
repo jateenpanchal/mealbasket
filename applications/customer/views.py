@@ -3,15 +3,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-# from .forms import userregform
 from restaurant.models import fooditemdata
 from mealbasketapp.models import category
 from .forms import *
 from cart.cart import Cart
 from django.db.models import F
-
+from django.db.models import Q 
 from checkout.models import Order
-# Create your views here.
 
 
 def my(request,id):
@@ -20,7 +18,6 @@ def my(request,id):
 
 
 ######################################### Reg , Login, Logout   ##################################
-
 
 def custreg(request):
     if request.method == 'POST':
@@ -56,6 +53,15 @@ def custlogout(request):
     logout(request)
     return redirect('custhomepage')
 
+def deletprofile(request,id):
+    user = request.user
+    data = user.objects.get(id=id)
+    if data:
+        data.delete()
+        return redirect("custhomepage")
+    else:
+        return render(request,'customer/custhomepage.html')
+    return render(request,'customer/custhomepage.html')
 
 ################################### Reg , Login, Logout end ##################################
 
@@ -84,8 +90,6 @@ def foodcart(request):
 
 
 def menu(request):
-    
-    
     # restdata = fooditemdata.objects.get(user=user)
     fooddata = fooditemdata.objects.filter(availability=True)
     catdata = category.objects.all()
@@ -96,7 +100,7 @@ def menu(request):
     return render(request, "customer/menu.html", context)
 
 
-@login_required(login_url='custlogin')
+# @login_required(login_url='custlogin')
 def contact(request):
     return render(request, 'customer/contact.html')
 
@@ -110,6 +114,12 @@ def cart_add(request, id):
     cart.add(product)
     return redirect("menu")
 
+@login_required(login_url="custlogin")
+def buy_now(request, id):
+    cart = Cart(request)
+    product = fooditemdata.objects.get(id=id)
+    cart.add(product)
+    return redirect("foodcart")
 
 @login_required(login_url="custlogin")
 def item_clear(request, id):
@@ -117,7 +127,6 @@ def item_clear(request, id):
     product = fooditemdata.objects.get(id=id)
     cart.remove(product)
     return redirect("foodcart")
-
 
 @login_required(login_url="custlogin")
 def item_increment(request, id):
@@ -137,19 +146,15 @@ def item_decrement(request, id):
     except:
         return redirect("foodcart")
         
-
-
 @login_required(login_url="custlogin")
 def cart_clear(request):
     cart = Cart(request)
     cart.clear()
     return redirect("foodcart")
 
-
 @login_required(login_url="custlogin")
 def cart_detail(request):
     return render(request, 'cart/cart_detail.html')
-
 
     ######################################### Profile   ##################################
     
@@ -206,3 +211,19 @@ def customerorders(request):
 def customerordersdetails(request,time):
     ordersdetails = Order.objects.filter(time=time).filter(user=request.user).first()
     return render(request,'customer/custorders.html')
+
+def payment(request):
+    return render(request,"customer/payment.html")
+
+
+# search functionality
+#data2 = fooditemdata.objects.filter(Q(food_name__icontains=data)|Q(category_name__category_name__icontains=data))
+# in above line category name is a foreign key so that direct foreignkey are not available so that we write like this (category_name__category_name__icontains=data)
+
+def search_results(request):
+    if request.method == "GET":
+        data = request.GET['q']
+        data2 = fooditemdata.objects.filter(Q(food_name__icontains=data)|Q(category_name__category_name__icontains=data))
+    else:
+        return render(request,"search.html",{'msg':"Search product not available"}) 
+    return render(request,"customer/search.html",{'data2':data2})  

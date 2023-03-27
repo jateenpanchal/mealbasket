@@ -3,7 +3,8 @@ from .forms  import orderform
 from cart.cart import Cart
 from .models import Order
 from accounts.models import User
-# from restaurant.models import fooditemdata
+from django.http import JsonResponse
+import json
 from django.views.decorators.csrf import csrf_exempt
 
 def CheckOut(request):
@@ -47,14 +48,29 @@ def CheckOut(request):
             )
             order.save()
         print(cart)
-        request.session['cart'] = {}
-        return redirect("custhomepage")
-        # if order.is_valid():
-        # else:
-        #     print('error')
+        # request.session['cart'] = {}
+        return redirect("payment")
     return render(request, "customer/checkout.html", {'orderdata': orderdata})
 
 
 @csrf_exempt
 def handlerequest(request):
     pass
+
+@csrf_exempt
+def payment_done(request):
+    return render(request, "customer/payment-success.html")
+    
+
+@csrf_exempt
+def payment_canceled(request):
+    return render(request, "customer/payment-fail.html")
+    
+    
+    
+def paymentComplete(request):
+    body = json.loads(request.body)
+    print('BODY:', body)
+    # product = 
+    
+    return JsonResponse('Payment completed!', safe=False)

@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'deliveryboy',
     'checkout',
     'crispy_forms',
-    'mealbasketapp',              
+    'mealbasketapp',
+    'paypal.standard.ipn',
+    'django_template_maths',              
     "django.contrib.auth",
     "django.contrib.admin",
     "django.contrib.contenttypes",
@@ -49,7 +51,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
-CRISPY_TEMPLATE_PACK = 'uni_form'
+# CRISPY_TEMPLATE_PACK = 'uni_form'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -148,19 +151,21 @@ AUTH_USER_MODEL = "accounts.User"
 LOGIN_REDIRECT_URL = 'custhomepage'
 LOGOUT_REDIRECT_URL = 'custhomepage'
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
 
-# SMTP Configuration
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'frommealbasket@gmail.com'
-# EMAIL_HOST_PASSWORD = 'aduqdwebfpnfbycj'
+# Email forgetpasword
 
-EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'frommealbasket@gmail.com'
-EMAIL_HOST_PASSWORD = 'ngzawjdmektvlzeo'
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'mealbasket Team <noreply@example.com>'
+EMAIL_HOST_PASSWORD = 'kohvvxvwvqwzdafc'
+DEFAULT_FROM_EMAIL = 'frommealbasket@gmail.com'
+
+
+#paypal
+
+PAYPAL_RECEIVER_EMAIL = 'mealbasket@gmail.com'
+PAYPAL_TEST = True

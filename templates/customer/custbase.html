@@ -1,4 +1,10 @@
 {% load static %}
+{% url 'custhomepage' as custhomepage %}
+{% url 'menu' as menu %}
+{% url 'contact' as contact %}
+{% url 'showuserprofile' as showuserprofile %}
+{% url 'foodcart' as foodcart %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,13 +54,21 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active fw-bold fs-6" aria-current="page" href="/">HOME</a>
+                        <a class="nav-link {% if request.path == custhomepage %}
+                        active
+                    {% endif %} fw-bold fs-6" aria-current="page" href="{% url 'custhomepage' %}">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold fs-6" href="{% url 'menu' %}">MENU</a>
+                        <a class="nav-link 
+                        {% if request.path == menu %}
+                            active
+                        {% endif %}
+                              fw-bold fs-6" href="{% url 'menu' %}">MENU</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold fs-6" href="{% url 'contact' %}">CONTACT</a>
+                        <a class="nav-link {% if request.path == contact %}
+                        active
+                    {% endif %} fw-bold fs-6" href="{% url 'contact' %}">CONTACT</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link fw-bold fs-6" href="#">ABOUT</a>
@@ -62,23 +76,40 @@
 
 
                 </ul>
+
+                <div class="col-lg-4 col-6 text-left">
+                    <form action="{% url 'search_results' %}">
+                        <div class="input-group">
+                            <input style="height:40px;" type="text" name="q" class="form-control" placeholder="Search Food">
+                            <input type="submit" value="Search" class="btn btn-outline-warning">
+                            
+                        </div>
+                    </form>
+                </div>
+{% comment %} 
                 <form class="d-flex">
                     <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-warning fw-bold fs-6" type="submit">SEARCH</button>
-                </form>
+                </form> {% endcomment %}
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     {% if request.user.is_authenticated %}
                     
                     <li class="nav-item">
                         <a href="{% url 'showuserprofile' %}"
-                            class="text-decoration-none nav-link fw-bold fs-6" >PROFILE</a></li>
+                            class="text-decoration-none {% if request.path == showuserprofile %}
+                            active
+                        {% endif %}  nav-link fw-bold fs-6" >PROFILE</a></li>
                             
                     <li class="nav-item"><a href="{% url 'custlogout' %}"
                             class="text-decoration-none nav-link fw-bold fs-6">LOGOUT</a></li>
                     <li class="nav-item ml-2"><a href="{% url 'foodcart' %}"
                             class="text-decoration-none nav-link fw-bold fs-6 ">
-                            <button type="button" class="btn btn-warning position-relative">
-                                Cart
+                            <button type="button" class="btn {% if request.path == foodcart %}
+                            btn-danger
+                            {% else %}
+                            btn-warning
+                            {% endif %} position-relative">
+                            Cart 
                                 <span
                                     class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
                                     {{request.session.cart|length}}

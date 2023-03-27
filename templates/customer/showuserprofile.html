@@ -1,13 +1,12 @@
 {% extends "customer/profilebase.html" %}
-
 {% block profilecontent %}
 {% load static %}
+
 
 
 {% for i in custdata1 %}
 
 {% if request.user.is_authenticated %}
-{% comment %} {% if request.user.id.Profile %} {% endcomment %}
         <table class="table table-striped">
             <thead>
               <tr>
@@ -31,9 +30,10 @@
             </thead>
         </table>
 
-
         <a href="{% url 'updateuserprofile' i.id %}" class="btn btn-warning fw-bold">Update</a>
+        {% comment %} <a href="{% url 'deletprofile' i.id %}" class="btn btn-outline-warning fw-bold">Delet Your Account</a>
 
+         {% endcomment %}
         {% endif %}
         
       

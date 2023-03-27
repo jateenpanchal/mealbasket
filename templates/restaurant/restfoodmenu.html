@@ -1,5 +1,11 @@
 {% extends "restaurant/restsidebar.html" %} {% load static %} {% block content %}
 
+{% if fooddata|length == 0  %}
+
+<h2 class="text-dark p-5 text-center">No Items Added...Please Add Food Items</h2>
+          {% else %}
+            
+
 <div class="table-responsive">
   <table class="table">
     <thead>
@@ -68,5 +74,6 @@
     </tbody>
   </table>
 </div>
+{% endif %}
 
 {% endblock %}

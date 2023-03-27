@@ -1,82 +1,121 @@
 {% extends "restaurant/restsidebar.html" %}
- {% load static %} 
- {% block content %}
+{% load static %}
+{% block content %}
+{% comment %} <div class="row g-0 p-1">
+  <div class="col d-grid gap-2">
+    <button class="btn btn-sm btn-secondary">All Orders</button>
+  </div>
+  <div class="col d-grid gap-2">
+    <button class="btn btn-sm btn-primary">Accepted Orders</button>
+  </div>
+  <div class="col d-grid gap-2">
+    <button class="btn btn-sm btn-warning">Pending Orders</button>
+  </div>
+  <div class="col d-grid gap-2">
+    <button class="btn btn-sm btn-primary">Preparing Orders</button>
+  </div>
+  <div class="col d-grid gap-2">
+    <button class="btn btn-sm btn-success">Ready Orders</button>
+  </div>
+</div> {% endcomment %}
 
- <table class="table table  table-hover  align-middle mb-0 bg-white">
-    <thead class="bg-light" >
-      <tr>
-        <th class=""> <label class="fs-6" for="">ORDER</label> </th>
-        <th class=""> <label class="fs-6" for="">NAME</label> </th>
-        <th class=""> <label class="fs-6" for="">QUANTITY</label> </th>
-        <th class=""> <label class="fs-6" for="">PRICE</label> </th>
-        <th class=""> <label class="fs-6" for="">TOTAL BILL</label> </th>
-        <th class=""> <label class="fs-6" for="">DATE & TIME</label> </th>
-        <th class=""> <label class="fs-6" for="">Order Status</label> </th>
-        <th class=""> <label class="fs-6" for="">Action</label> </th>
-        
-      </tr>
-    </thead>
-    <tbody>
-        {% for i in orders  %}
-      <tr>
-        <td>
-          <div class="d-flex align-items-center">
-            <img
-                src="{{i.image}}"
-                alt=""
-                style="width: 100px; height: 80px; border-radius:5px"
-                />
-            <div class="ms-3">
-              <p class="fw-bold mb-1">{{i.f_name|upper}}</p>
-              
-              {% comment %} <p class="text-muted mb-0">Phone Number:{{i.phone_number}}</p> {% endcomment %}
-            </div>
+<table class="table table  table-hover  align-middle mb-0 bg-white">
+  <thead class="bg-light">
+    <tr>
+      <th class=""> <label class="fs-6" for="">ORDER</label> </th>
+      <th class=""> <label class="fs-6" for="">NAME</label> </th>
+      <th class=""> <label class="fs-6" for="">QUANTITY</label> </th>
+      <th class=""> <label class="fs-6" for="">PRICE</label> </th>
+      <th class=""> <label class="fs-6" for="">TOTAL BILL</label> </th>
+      <th class=""> <label class="fs-6" for="">DATE & TIME</label> </th>
+      <th class=""> <label class="fs-6" for="">Order Status</label> </th>
+      <th class=""> <label class="fs-6" for="">Action</label> </th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in orders %}
+    <tr>
+      <td>
+        <div class="d-flex align-items-center">
+          <img src="{{i.image}}" alt="" style="width: 100px; height: 80px; border-radius:5px" />
+          <div class="ms-3">
+            <p class="fw-bold mb-1">{{i.f_name|upper}}</p>
+
+            {% comment %} <p class="text-muted mb-0">Phone Number:{{i.phone_number}}</p> {% endcomment %}
           </div>
-        </td>
-        <td>
-          {% comment %} <p class="fw-bold mb-1">{{i.f_name|upper}}</p> {% endcomment %}
-          <label class="fw-bold  mb-1">{{ i.first_name|upper }}</label>
-                <label for="" class="fw-bold mb-1">{{ i.last_name|upper }}</label>
-          <p class="text-muted mb-0">{{i.category_name}}</p>
-        </td>
-        <td>
-          <p>{{i.quantity}}</p>
-        </td>
-        <td>
-          <p>{{i.price}}</p>
-        </td>
-        <td>{{i.total}}</td>
-        <td>
-            {{i.time}}
-          
-        </td>
-        
-        <td>
-            {% comment %} {{i.order_status}} {% endcomment %}
-            {% if i.order_status == 'pending' %}
-            <span class="text-warning ">{{ i.order_status|upper }} <i class="fa-solid fa-hourglass-end"></i> </span>
+        </div>
+      </td>
+      <td>
+        <label class="fw-bold  my-4">{{ i.first_name|upper }}</label>
+        <label for="" class="fw-bold my-4">{{ i.last_name|upper }}</label>
+        <p class="text-muted">{{i.category_name}}</p>
+      </td>
+      <td>
+        <p class="fw-bold my-4">{{i.quantity}}</p>
+      </td>
+      <td>
+        <p class="fw-bold my-4">{{i.price}}</p>
+      </td>
+      <td>
+        <p class="fw-bold my-4">{{i.total}} </p>
+      </td>
+      <td>
+        <p class="fw-bold my-4">
+          {{i.time}}
+
+        </p>
+      </td>
+
+      <td>
+        {% comment %} {{i.order_status}} {% endcomment %}
+        {% if i.order_status == 'pending' %}
+        <span class="text-warning fw-bold my-4 ">
+          <p class="fw-bold my-4">
+
+            {{ i.order_status|upper }} <i class="fa-solid fa-hourglass-end"></i>
+          </p>
+
+        </span>
         {% elif i.order_status == 'accepted' %}
-            <span class=" text-success">{{ i.order_status|upper }}  <i class="fa-solid fa-circle-check"></i></span>
+        <span class=" text-success ">
+          <p class="fw-bold my-4">
+            {{ i.order_status|upper }}
+            <i class="fa-solid fa-circle-check"></i>
+        </span>
+        </p>
         {% elif i.order_status == 'ready' %}
-            <span class="text-primary">{{ i.order_status|upper }} <i class="fa-duotone fa-moped"></i></span>
+        <span class="text-primary fw-bold my-4">
+          <p class="fw-bold my-4">
+
+            {{ i.order_status|upper }} <i class="fa-duotone fa-moped"></i>
+          </p>
+        </span>
         {% elif i.order_status == 'preparing' %}
-            <span class="text-primary">{{ i.order_status|upper }}</span>
+        <span class="text-primary fw-bold my-4">{{ i.order_status|upper }}</span>
         {% else %}
-            <span>{{ i.order_status }}</span>
+        <span>
+          <p class="fw-bold my-4">
+
+            {{ i.order_status }
+          </p>
+          }
+        </span>
         {% endif %}
-        
-
-          
-        </td>
-
-        <td>
-          <a class="btn btn-warning btn-sm" href="{% url 'restupdateorders' i.id %}" class=" text-dark"><i class="fa-solid fa-pen-to-square"></i></a>
-          </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
 
 
-  
- {% endblock %}
+
+      </td>
+
+      <td>
+        <a class="btn btn-warning btn-sm fw-bold my-4" href="{% url 'restupdateorders' i.id %}" class=" text-dark"><i
+            class="fa-solid fa-pen-to-square"></i></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+{% endblock %}

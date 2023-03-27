@@ -1,0 +1,78 @@
+{% extends "customer/custbase.html" %}
+{% load static %}
+{% block content %}
+
+{% if data2|length > 0 %}
+<div class="px-5 py-2">
+  <h3 class="text-dark">Search Result : {{data2|length}} </h3>
+  
+</div>
+{% endif %}
+  
+        <!-- Shop Product Start -->
+        <div class="row g-0">
+
+          <section style="background-color: #eee;">
+            {% if data2|length == 0  %}
+            
+            <h2 class="text-dark p-5 text-center">Oppss...!  Search Food not available</h2>
+          
+            {% endif %}
+              <div class="container py-5">
+                <div class="row mb-3">  
+              {%  for i in data2 %}
+              <div class="col-md-6 mb-4 ">
+
+                <div class="card"  style="-webkit-box-shadow: 3px 2px 10px 0px rgba(184,180,184,1);
+                -moz-box-shadow: 3px 2px 10px 0px rgba(184,180,184,1);
+                box-shadow: 3px 2px 10px 0px rgba(184,180,184,1);">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class=" col mb-4 mb-lg-0">
+                        <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                          <img height="200px" src="{{i.food_photo.url}}"
+                            class="w-100" />
+                          <a href="#!">
+                            <div class="hover-overlay">
+                              <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <h5>{{i.food_name}}</h5>
+                        <div class="d-flex flex-row">
+                          <div class="text-danger mb-1 me-2">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                          </div>
+                          <span></span>
+                          <br>
+                      </div>
+                      <p class="mb-1 fs-5 text-dark me-1">{{i.food_price}} &#8377;</p>
+                        <h6 class="text-success">Free shipping</h6>
+                        <button style="width:150px;" class="btn btn-warning btn-sm mt-2" type="button">
+                            <a class="text-decoration-none text-dark " href="{% url 'cart_add'  i.id  %}">Add to cart</a>
+                            
+                          </button>
+                        <button style="width:150px;" class="btn btn-outline-warning btn-sm mt-2" type="button">
+                            <a class="text-decoration-none text-dark " href="{% url 'buy_now'  i.id  %}">Buy Now</a>
+                            
+                          </button>
+                        
+                      </div>
+                      
+                     
+                  </div>
+                  </div>
+                  </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+      </div>
+
+{% endblock %}

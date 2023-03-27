@@ -96,19 +96,34 @@ def moreorderdetail(request,id):
     return render(request,"deliveryboy/moreorderdetails.html",context)
 
 def deldashboard(request):
-    return render(request,"deliveryboy/deldashbord.html",)
+    current_user = request.user.id
+    # orders = Order.objects.filter(restaurant_id=current_user).order_by(F('time').desc())
+    orders = Order.objects.all()
+    accepted_orders = Order.objects.filter(delivery_order_choice='Accept').order_by('-time')
+    rejected_orders = Order.objects.filter(delivery_order_choice='Reject').order_by('-time')
+    delivery_status = Order.objects.filter(delivery_status='Going To Restaurant').order_by('-time')
+    delivery_status2 = Order.objects.filter(delivery_status='Picked Up').order_by('-time')
+    delivery_status3 = Order.objects.filter(delivery_status='Delivered').order_by('-time')
+    context = {
+        'orders': orders,
+        # 'fooddata': fooddata,
+        # 'pending_orders':pending_orders,
+        'accepted_orders':accepted_orders,
+        'rejected_orders':rejected_orders,
+        'delivery_status':delivery_status,
+        'delivery_status2':delivery_status2,
+        'delivery_status3':delivery_status3,
+        
+        # 'preparing_orders':preparing_orders,
+        # 'ready_orders':ready_orders,
+    }
+    return render(request,"deliveryboy/deldashbord.html",context)
 
 
 def showdelprofile(request):
     current_user = request.user
     showdata = Deliveryboydata.objects.filter(user__id=request.user.id)
     return render(request,"deliveryboy/showdelprofile.html",{'deldata1': showdata})
-
-
-
-
-
-
 
 def updateorders(request, id):
     data1 = Order.objects.get(id=id)

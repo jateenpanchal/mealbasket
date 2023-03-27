@@ -1,5 +1,6 @@
 {% extends "customer/custbase.html" %}
 {% load static %}
+{% load django_template_maths %}
 {% load cart_tag %}
 {% block content %}
 
@@ -8,7 +9,7 @@
         <div class="col-md-8">
             <div class="container">
                 <div class="d-flex   justify-content-between align-items-center mb-4">
-                    <h3 class="fw-normal mb-0 text-black fw-bold">Shopping Cart</h3>
+                    <h3 class="fw-normal mb-0 text-black fw-bold">CheckOut</h3>
                 </div>
                 <hr>
 
@@ -77,7 +78,12 @@
                             {% endfor %}
                             <h5><span class=" py-5 text-black">Total Price  </span><span class="float-end text-black px-5">{{cart_total_amount}} &#8377;</span></h5>
                         </div>
+                        
+                        
+                        
+                        <div id="paypal-button-container" class='text-center mt-2'></div>
                     </div>
+        
                 </div>
                 
 
@@ -88,5 +94,83 @@
         </div>
     </div>
 </div>
+<script src="https://www.paypal.com/sdk/js?client-id=AfcKEmQPnkG6qR0wpzlUMfmC1xo_HnhquwUryM-5vNUNivkWF70HFGO1JdLP-sxd0aSchAJC-4RXQaNK&currency=USD"></script>
+
+
+<script>
+    // Render the PayPal button into #paypal-button-container
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+
+function CompleteOrder(){
+    var url = '{% url 'complete' %}'
+
+            fetch(url,{
+    method:'post',
+    headers:{
+        'Content-type':'application/json',
+        'X_CSRFToken':csrftoken,
+    },
+            }
+                
+            )
+        }
+
+    paypal.Buttons({
+        locale: 'it_IT',
+        style: {
+            color: 'gold',
+            shape: 'rect',
+            layout: 'vertical',
+            label: 'pay'
+        },
+
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value:{{cart_total_amount| div:82.57|floatformat:"2"}}
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+                CompleteOrder()
+                // Successful capture! For demo purposes:
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                // Replace the above to show a success message within this page, e.g.
+                // const element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '';
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('thank_you.html');
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+</script>
 
 {% endblock %}

@@ -58,7 +58,9 @@
             class="row d-flex justify-content-center align-items-center h-100"
           >
             <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-              <div class="card" style="border-radius: 15px">
+              <div class="card"  style="-webkit-box-shadow: 9px 9px 11px -7px rgba(0,0,0,0.75);
+              -moz-box-shadow: 9px 9px 11px -7px rgba(0,0,0,0.75);
+              box-shadow: 9px 9px 11px -7px rgba(0,0,0,0.75);">
                 <div class="card-body p-5">
                   <h2 class="text-uppercase text-dark text-center mb-5">
                     Login Here
@@ -81,7 +83,7 @@
                       <input type="email" name="email" id="email" class="form-control">
                     </div>
 
-                    <div class="form-outline mb-4">
+                    <div class="form-outline">
                       {% comment %}
                       <input
                         type="password"
@@ -97,14 +99,15 @@
                     </div>
 
                     <strong class="fs-5 ">{{error}}</strong>
-                    <div class="d-flex justify-content-center">
-                      <button
-                        type="submit"
-                        class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
-                      >
-                        Login
-                      </button>
-                    </div>
+                    <br>
+                    <div class="d-grid gap-2">
+                      
+                      <a href="{% url 'password_reset' %}" class="fs-6 fw-bolder">
+                        <p class="text-end"> Forgot Password </p></a>
+
+                      <button type="submit" class="btn btn-success btn-block fs-5 gradient-custom-4 text-body">Login
+                    </button>
+                  </div>
 
                     <p class="text-center text-muted mt-5 mb-0">
                       Don't Have an account?
@@ -112,6 +115,7 @@
                         ><u>register here</u></a
                       >
                     </p>
+
                   </form>
                 </div>
               </div>

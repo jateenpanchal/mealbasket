@@ -15,16 +15,6 @@
         </div>
         
         <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-green order-card">
-                <div class="card-block">
-                    <h6 class="m-b-20">Food Items</h6>
-                    <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>{{fooddata|length}}</span></h2>
-                    <p class="m-b-0">Total Food Items<span class="f-right">{{fooddata|length}}</span></p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4 col-xl-3">
             <div class="card bg-e-green order-card">
                 <div class="card-block">
                     <h6 class="m-b-20">Pending Orders</h6>
@@ -57,9 +47,27 @@
         <div class="col-md-4 col-xl-3">
             <div class="card bg-c-pink order-card">
                 <div class="card-block">
-                    <h6 class="m-b-20">Ready Received</h6>
-                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>{{ready_orders|length}}</span></h2>
-                    <p class="m-b-0">Ready Orders<span class="f-right">{{ready_orders|length}}</span></p>
+                    <h6 class="m-b-20">Going to Restaurant</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>{{delivery_status|length}}</span></h2>
+                    <p class="m-b-0">Going to Restaurant Orders<span class="f-right">{{delivery_status|length}}</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue2 order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Picked Up Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>{{delivery_status2|length}}</span></h2>
+                    <p class="m-b-0">Picked Up Orders<span class="f-right">{{delivery_status2|length}}</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue3 order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Delivered Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>{{delivery_status3|length}}</span></h2>
+                    <p class="m-b-0">Delivered Orders<span class="f-right">{{delivery_status3|length}}</span></p>
                 </div>
             </div>
         </div>

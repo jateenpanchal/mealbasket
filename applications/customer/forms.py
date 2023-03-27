@@ -38,3 +38,15 @@ class CustRegForm(UserCreationForm):
             raise forms.ValidationError("Please indicate whether you are a customer.")
         return is_customer
         
+        
+# from django.contrib.auth.forms import PasswordResetForm
+# class UserPasswordResetForm(PasswordResetForm):
+#     def __init__(self, *args, **kwargs):
+#         super(UserPasswordResetForm, self).__init__(*args, **kwargs)
+
+#     email = forms.EmailField(label='', widget=forms.EmailInput(attrs={
+#         'class': 'form-control',
+#         'placeholder': 'email',
+#         'type': 'email',
+#         'name': 'email'
+#         }))
